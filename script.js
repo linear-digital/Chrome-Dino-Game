@@ -29,7 +29,7 @@ const getUser = async () => {
   // get user id form url search query
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get('user');
-  const res = await fetch('http://localhost:8000/api/user/score/get/' + userId, {
+  const res = await fetch('https://genzit.linearhub.com/api/user/score/get/' + userId, {
 
   })
   const data = await res.json()
@@ -104,7 +104,7 @@ function handleStart() {
 }
 const updateScoreOnSerevr = async (scoreNow) => {
   const user = await getUser()
-  const res = await fetch('http://localhost:8000/api/user/score/update/', {
+  const res = await fetch('https://genzit.linearhub.com/api/user/score/update/', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
