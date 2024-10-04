@@ -7,15 +7,20 @@
     margin: 0;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     min-height: 100vh;
     font-family: 'Press Start 2P', cursive;
     background-color: #f7f7f7;
   }
-  
+  button{
+    margin-top: 100px;
+  }
   .world {
     overflow: hidden;
     position: relative;
+    width: 100vw;
+    /* min-height: 300px; */
   }
   
   .score {

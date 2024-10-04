@@ -126,7 +126,10 @@ function handleLose() {
   setDinoLose()
 
   setTimeout(() => {
-    document.addEventListener("keydown", handleStart, { once: true })
+    document.addEventListener("keydown", handleStart, { once: true }) // Keeps the keyboard start
+    const startButton = document.getElementById("start-button") // Get the button element
+
+    startButton.addEventListener("click", handleStart) // Add click event listener to the start button
     startScreenElem.classList.remove("hide")
     if (score > heights) {
       heights = score
