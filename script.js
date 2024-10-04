@@ -29,6 +29,9 @@ const getUser = async () => {
   // get user id form url search query
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get('user');
+  if (!userId) {
+    return document.location.assign('https://www.genzit.xyz/feed/games')
+  }
   const res = await fetch('https://genzit.linearhub.com/api/user/score/get/' + userId, {
 
   })
