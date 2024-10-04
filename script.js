@@ -26,21 +26,27 @@ let Highscore
 let heights
 let userInfo
 const getUser = async () => {
-  // get user id form url search query
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get('user');
   if (!userId) {
-    return document.location.assign('https://www.genzit.xyz/feed/games')
+    return document.location.assign('https://www.genzit.xyz/feed/games');
   }
-  const res = await fetch('https://genzit.linearhub.com/api/user/score/get/' + userId, {
 
-  })
-  const data = await res.json()
+  try {
+    const res = await fetch(`https://genzit.linearhub.com/api/user/score/get/${userId}`);
+    const data = await res.json();
 
-  heights = data.score
-  hiScore.innerHTML = Math.floor(heights)
-
-  return data
+    if (res.ok) {
+      heights = data.score;
+      hiScore.innerHTML = Math.floor(heights);
+      userInfo = data;  // Cache user data for future use
+      return data;
+    } else {
+      console.error('Failed to fetch user data');
+    }
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
 }
 
 getUser()
@@ -71,13 +77,8 @@ function checkLose() {
 }
 
 
-function isCollision(rect1, rect2) {
-  return (
-    rect1.left < rect2.right &&
-    rect1.top < rect2.bottom &&
-    rect1.right > rect2.left &&
-    rect1.bottom > rect2.top
-  )
+function isCollision({ left: l1, top: t1, right: r1, bottom: b1 }, { left: l2, top: t2, right: r2, bottom: b2 }) {
+  return l1 < r2 && t1 < b2 && r1 > l2 && b1 > t2;
 }
 
 function updateSpeedScale(delta) {
